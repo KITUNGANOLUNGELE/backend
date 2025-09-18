@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = exspress()
 const mongoose = require('mongoose');
-const promotionRouter = require('./routes/promotin');
-const studentRouter  = require('./routes/student')
+const coursRouter = require('./routes/cours');
+const ensRouter  = require('./routes/enseignant')
+const enseignRouter = require('./routes/enseignement')
 
 mongoose.connect('mongodb://127.0.0.1:27017',{
     dbName : "ecole"
@@ -16,9 +17,9 @@ app.use(morgan('dev'))
 
 //routes
 
-app.use('/promotion', promotionRouter);
-app.use('/student', studentRouter);
-
+app.use('/cours', coursRouter);
+app.use('/enseignant', ensRouter);
+app.use('/enseignement', enseignRouter)
 
 
 module.exports = app

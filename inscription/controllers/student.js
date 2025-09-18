@@ -4,7 +4,7 @@ const studentModel = require('../models/student');
 class Student {
 
     async getAll() {
-        const resp = await studentModel.find().populate(['promotion'])
+        const resp = await studentModel.find()
         return resp
     }
 

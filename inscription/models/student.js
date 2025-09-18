@@ -5,10 +5,7 @@ const StudentSchema = new mongoose.Schema({
     postnom : String,
     email : String,
     phone : String,
-    promotion : {
-        ref : 'PromModel',
-        type : mongoose.Schema.Types.ObjectId
-    }
+    mdp : String,
 })
 
 module.exports = mongoose.model("StudentModel", StudentSchema)
