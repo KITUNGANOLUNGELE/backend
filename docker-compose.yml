@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  cotes : 
+    build: ./cotes
+    container_name: cotes
+    image: henock001/cotes:v1
+    ports:
+      - "3003:3003"
+  enseignement:
+    build:  ./enseignement
+    container_name: enseignement
+    image: henock001/enseignement:v1
+    ports:
+      - "3002:3002"
+  inscription:
+    build: ./inscription
+    container_name: "inscription"
+    image: henock001/inscription:v1
+    ports:
+      - "3001:3001"
+  

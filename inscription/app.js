@@ -10,7 +10,7 @@ const inscriptionRouter = require('./routes/inscription')
 const cors = require('cors');
 
 
-mongoose.connect('mongodb://127.0.0.1:27017',{
+mongoose.connect('mongodb://host.docker.internal:27017',{
     dbName : "ecole"
 }).then(el=>{console.log('connected to the database')})
 

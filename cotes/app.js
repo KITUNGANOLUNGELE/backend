@@ -7,7 +7,7 @@ const coteRouter = require('./routes/cote')
 const cors = require('cors');
 
 
-mongoose.connect('mongodb://127.0.0.1:27017',{
+mongoose.connect('mongodb://host.docker.internal:27017/ecole',{
     dbName : "ecole"
 }).then(el=>{console.log('connected to the database')})
 
