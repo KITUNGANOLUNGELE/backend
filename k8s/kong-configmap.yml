@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-config
+data:
+  kong.yml: |
+    _format_version: "2.1"
+    services:
+      - name: cotes
+        url: http://cotes:3003
+        routes:
+          - name: cotes-route
+            paths:
+              - /cotes
+      - name: enseignement
+        url: http://enseignement:3002
+        routes:
+          - name: enseignement-route
+            paths:
+              - /enseignement
+      - name: inscription
+        url: http://inscription:3001
+        routes:
+          - name: inscription-route
+            paths:
+              - /inscription
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-declarative-config
+data:
+  kong.yml: |
+    _format_version: "3.0"
+    _transform: true
+    services:
+      - name: inscription-service
+        url: http://inscription:3001
+        routes:
+          - name: inscription-route
+            paths:
+              - /inscription

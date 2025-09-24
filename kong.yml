@@ -1,0 +1,81 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: cotes-service
+    url: http://cotes:3003
+    routes:
+      - name: cotes-route
+        paths:
+          - /cotes
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "*"
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Authorization
+            - Content-Type
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+
+  - name: enseignement-service
+    url: http://enseignement:3002
+    routes:
+      - name: enseignement-route
+        paths:
+          - /enseignement
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "*"
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Authorization
+            - Content-Type
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+
+  - name: inscription-service
+    url: http://inscription:3001
+    routes:
+      - name: inscription-route
+        paths:
+          - /inscription
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "*"
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Authorization
+            - Content-Type
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600

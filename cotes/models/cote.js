@@ -10,7 +10,7 @@ const coteSchema = new mongoose.Schema({
     cours : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "CoursModel"
-    }
+    },
     
 })
 

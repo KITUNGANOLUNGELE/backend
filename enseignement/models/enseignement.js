@@ -8,7 +8,8 @@ const enseigneSchema = new mongoose.Schema({
     enseignant : {
           type : mongoose.Schema.Types.ObjectId,
         ref : "EnseignantModel"
-    }
+    },
+    annee : Number
     
 })
 

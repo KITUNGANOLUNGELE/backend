@@ -1,22 +1,41 @@
 version: '3.8'
-
 services:
-  cotes : 
+  kong:
+    image: kong:3.6
+    container_name: kong
+    restart: always
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+    volumes:
+      - "C:/backend/kong.yml:/usr/local/kong/declarative/kong.yml:ro"
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+
+  cotes:
     build: ./cotes
     container_name: cotes
     image: henock001/cotes:v1
     ports:
       - "3003:3003"
+
   enseignement:
-    build:  ./enseignement
+    build: ./enseignement
     container_name: enseignement
     image: henock001/enseignement:v1
     ports:
       - "3002:3002"
+
   inscription:
     build: ./inscription
-    container_name: "inscription"
+    container_name: inscription
     image: henock001/inscription:v1
     ports:
       - "3001:3001"
-  

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inscription
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inscription
+  template:
+    metadata:
+      labels:
+        app: inscription
+    spec:
+      containers:
+        - name: inscription
+          image: henock001/inscription:v1
+          ports:
+            - containerPort: 3001
