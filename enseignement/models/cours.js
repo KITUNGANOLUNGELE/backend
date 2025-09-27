@@ -8,4 +8,7 @@ const coursSchema = new mongoose.Schema({
     
 })
 
+const promSchema = new mongoose.Schema({}, { strict: false });
+mongoose.model("PromModel", promSchema);
+
 module.exports = mongoose.model("CoursModel", coursSchema)

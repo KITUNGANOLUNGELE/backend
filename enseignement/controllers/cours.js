@@ -8,7 +8,7 @@ class Cours {
         return resp
     }
     async add(body) {
-        const resp = await coursModel.insertOne(body).populate(["promotion"])
+        const resp = await coursModel.insertOne(body)
         return resp
     }
 
@@ -23,7 +23,7 @@ class Cours {
     }
 
     async getONe(body) {
-        const resp = await coursModel.findById(body.id)
+        const resp = await coursModel.findById(body.id).populate(["promotion"])
     }
 }
 

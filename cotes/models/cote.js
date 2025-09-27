@@ -14,4 +14,11 @@ const coteSchema = new mongoose.Schema({
     
 })
 
+const inscriptionSchema = new mongoose.Schema({}, { strict: false });
+mongoose.model("InscriptionModel", inscriptionSchema);
+
+const coursSchema = new mongoose.Schema({}, { strict: false });
+mongoose.model("ICoursModel", coursSchema);
+
+
 module.exports = mongoose.model("CoteModel", coteSchema)

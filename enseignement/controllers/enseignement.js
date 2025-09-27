@@ -4,11 +4,11 @@ const enseignModel = require('../models/enseignement');
 class Enseign {
 
     async getAll() {
-        const resp = await enseignModel.find().populate(["Enseign", "enseignant"])
+        const resp = await enseignModel.find().populate(["cours", "enseignant"])
         return resp
     }
     async add(body) {
-        const resp = await enseignModel.insertOne(body).populate(["Enseign", "enseignant"])
+        const resp = await enseignModel.insertOne(body)
         return resp
     }
 
@@ -23,7 +23,8 @@ class Enseign {
     }
 
     async getONe(body) {
-        const resp = await enseignModel.findById(body.id)
+        const resp = await enseignModel.findById(body.id).populate(["cours", "enseignant"]);
+        return resp;
     }
 }
 

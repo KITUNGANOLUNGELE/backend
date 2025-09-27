@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router()
 
-const EnseignClassFile = require('../controllers/cours');
+const EnseignClassFile = require('../controllers/enseignement');
 const EnseignClass = new EnseignClassFile()
 
 
