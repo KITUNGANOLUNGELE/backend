@@ -4,7 +4,7 @@ const coteModel = require('../models/cote');
 class Cote {
 
     async getAll() {
-        const resp = await coteModel.find().populate([{ path: "inscription", populate: ["etudiant"] }, { path: "Cote" }])
+        const resp = await coteModel.find().populate([{ path: "inscription", populate: ["etudiant"] }, { path: "cours" }])
         return resp
     }
     async add(body) {

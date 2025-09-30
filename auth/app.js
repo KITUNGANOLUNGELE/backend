@@ -3,14 +3,14 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = exspress()
 const mongoose = require('mongoose');
-const coteRouter = require('./routes/cote')
+const authRouter = require('./routes/auth')
+
 const cors = require('cors');
 
 
-mongoose.connect('mongodb://host.docker.internal:27017/ecole',{
+mongoose.connect('mongodb://host.docker.internal:27017',{
     dbName : "ecole"
 }).then(el=>{console.log('connected to the database')});
-mongoose.set("strictPopulate", false);
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -34,7 +34,7 @@ app.use((req,resp,next)=>{
     next();
 })
 
-app.use('/cote', coteRouter)
+app.use('/auth', authRouter)
 
 
 module.exports = app
