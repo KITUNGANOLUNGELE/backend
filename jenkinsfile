@@ -25,7 +25,7 @@ pipeline {
         stage('charge les images dans minikube') {
             steps {
                 scritp {
-                    IMAGES.each { app->
+                    IMAGES.split().each { app->
                             echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
                             sh "minikube image load ${DOCKERUSER}/${app}:v1"
                     }
