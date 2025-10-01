@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGES = ['auth', 'cotes', 'inscription', 'enseignement']
+        IMAGES = 'auth cotes inscription enseignement'
         DOCKERUSER = 'henock001'
     }
     stages {
@@ -14,7 +14,7 @@ pipeline {
         stage('build images') {
             steps {
                 script {
-                    IMAGES.each { app ->
+                    IMAGES:split().each { app ->
                         echo "construction de l'image ${DOCKERUSER}/${app}:v1 a partir de ./${app}"
                         sh "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
                     }
@@ -41,10 +41,12 @@ pipeline {
         }
 
         stage('verification des deployement') {
-            echo 'lister les pods'
-            sh 'kubectl get pods'
-            echo 'lister les services'
-            echo 'kubectl get svc'
+            step {
+                echo 'lister les pods'
+                sh 'kubectl get pods'
+                echo 'lister les services'
+                echo 'kubectl get svc'
+            }
         }
     }
 
