@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+    environment {
+        IMAGES = ['auth', 'cotes', 'inscription', 'enseignement']
+        DOCKERUSER = 'henock001'
+    }
+    stages {
+        stage('clone repository') {
+            steps {
+                git branch : 'main', url: 'https://github.com/KITUNGANOLUNGELE/backend.git'
+            }
+        }
+
+        stage('build images') {
+            steps {
+                script {
+                    IMAGES.each { app ->
+                        echo "construction de l'image ${DOCKERUSER}/${app}:v1 a partir de ./${app}"
+                        sh "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
+                    }
+                }
+            }
+        }
+
+        stage('charge les images dans minikube') {
+            steps {
+                scritp {
+                    IMAGES.each { app-> {
+                            echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
+                            sh "minikube image load ${DOCKERUSER}/${app}:v1"
+                    }
+                }
+            }
+        }
+    }
+
+        stage('deployment sous kubernet') {
+            steps {
+                echo 'Deployement dur kubernet'
+                sh 'kubectl apply -f /k8s/'
+            }
+        }
+
+        stage('verification des deployement') {
+            echo 'lister les pods'
+            sh 'kubectl get pods'
+            echo 'lister les services'
+            echo 'kubectl get svc'
+        }
+}
+
+    post {
+        always {
+            echo 'pipeline finished '
+        }
+
+        success {
+            echo 'deployment successfull ✅'
+        }
+
+        failure {
+            echo 'pipeline failed ❌'
+        }
+    }
+}
