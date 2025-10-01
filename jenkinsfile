@@ -1,13 +1,17 @@
 def IMAGES = ["auth", "cotes", "inscription", "enseignement"]
+
 pipeline {
     agent any
     environment {
         DOCKERUSER = 'henock001'
+        // Indique à Docker où trouver le démon
+        DOCKER_HOST = 'tcp://host.docker.internal:2375'
     }
+
     stages {
         stage('clone repository') {
             steps {
-                git branch : 'main', url: 'https://github.com/KITUNGANOLUNGELE/backend.git'
+                git branch: 'main', url: 'https://github.com/KITUNGANOLUNGELE/backend.git'
             }
         }
 
@@ -25,9 +29,9 @@ pipeline {
         stage('charge les images dans minikube') {
             steps {
                 script {
-                    IMAGES.each { app->
-                            echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
-                            sh "minikube image load ${DOCKERUSER}/${app}:v1"
+                    IMAGES.each { app ->
+                        echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
+                        sh "minikube image load ${DOCKERUSER}/${app}:v1"
                     }
                 }
             }
@@ -45,7 +49,7 @@ pipeline {
                 echo 'lister les pods'
                 sh 'kubectl get pods'
                 echo 'lister les services'
-                echo 'kubectl get svc'
+                sh 'kubectl get svc'
             }
         }
     }
