@@ -41,7 +41,7 @@ pipeline {
         }
 
         stage('verification des deployement') {
-            step {
+            steps {
                 echo 'lister les pods'
                 sh 'kubectl get pods'
                 echo 'lister les services'
