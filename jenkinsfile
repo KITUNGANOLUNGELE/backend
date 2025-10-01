@@ -1,7 +1,7 @@
+def IMAGES = ["auth", "cotes", "inscription", "enseignement"]
 pipeline {
     agent any
     environment {
-        IMAGES = 'auth cotes inscription enseignement'
         DOCKERUSER = 'henock001'
     }
     stages {
@@ -14,7 +14,7 @@ pipeline {
         stage('build images') {
             steps {
                 script {
-                    IMAGES.split().each { app ->
+                    IMAGES.each { app ->
                         echo "construction de l'image ${DOCKERUSER}/${app}:v1 a partir de ./${app}"
                         sh "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
                     }
@@ -25,7 +25,7 @@ pipeline {
         stage('charge les images dans minikube') {
             steps {
                 scritp {
-                    IMAGES.split().each { app->
+                    IMAGES.each { app->
                             echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
                             sh "minikube image load ${DOCKERUSER}/${app}:v1"
                     }
