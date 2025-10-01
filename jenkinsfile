@@ -14,7 +14,7 @@ pipeline {
         stage('build images') {
             steps {
                 script {
-                    IMAGES:split().each { app ->
+                    IMAGES.split().each { app ->
                         echo "construction de l'image ${DOCKERUSER}/${app}:v1 a partir de ./${app}"
                         sh "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
                     }
