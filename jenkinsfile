@@ -20,7 +20,7 @@ pipeline {
                 script {
                     IMAGES.each { app ->
                         echo "construction de l'image ${DOCKERUSER}/${app}:v1 a partir de ./${app}"
-                        sh "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
+                        bat "docker build -t ${DOCKERUSER}/${app}:v1 ./${app}"
                     }
                 }
             }
@@ -31,7 +31,7 @@ pipeline {
                 script {
                     IMAGES.each { app ->
                         echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
-                        sh "minikube image load ${DOCKERUSER}/${app}:v1"
+                        bat "minikube image load ${DOCKERUSER}/${app}:v1"
                     }
                 }
             }
@@ -40,23 +40,23 @@ pipeline {
         stage('deployment sous kubernet') {
             steps {
                 echo 'Deployement dur kubernet'
-                sh 'kubectl apply -f /k8s/'
+                bat 'kubectl apply -f /k8s/'
             }
         }
 
         stage('verification des deployement') {
             steps {
                 echo 'lister les pods'
-                sh 'kubectl get pods'
+                bat 'kubectl get pods'
                 echo 'lister les services'
-                sh 'kubectl get svc'
+                bat 'kubectl get svc'
             }
         }
     }
 
     post {
         always {
-            echo 'pipeline finished '
+            echo 'pipeline finibated '
         }
 
         success {
