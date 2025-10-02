@@ -29,7 +29,6 @@ pipeline {
         stage('charge les images dans minikube') {
             steps {
                 script {
-                    bat 'powershell -Command "& minikube -p minikube docker-env | Invoke-Expression"'
                     IMAGES.each { app ->
                         echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
                         bat "minikube image load ${DOCKERUSER}/${app}:v1"
