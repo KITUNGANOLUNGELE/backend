@@ -53,28 +53,7 @@ pipeline {
                 }
             }
         }
-        stage('Restart Deployments') {
-            steps {
-                script {
-                      withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
-                // Récupérer la liste des déploiements
-                def deploymentsOutput = bat(
-                    script: 'kubectl get deployments -n default -o name',
-                    returnStdout: true
-                ).trim()
-
-                echo "Déploiements trouvés:\n${deploymentsOutput}"
-
-                // Découper ligne par ligne
-                deploymentsOutput.split('\r?\n').each { deployName ->
-                    deployName = deployName.trim() // supprimer espaces éventuels
-                    if (deployName) {
-                        echo "Redémarrage de ${deployName}"
-                        // Utiliser quotes pour éviter les problèmes Windows
-                        bat "kubectl rollout restart ${deployName} -n default"
-                }
-            }}
-        }
+    }
 
     post {
         always {
@@ -83,10 +62,14 @@ pipeline {
 
         success {
             echo 'deployment successfull ✅'
+            echo 'suppression des pods'
+            withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                    bat 'kubectl delete pods --all'
+            }
         }
 
         failure {
             echo 'pipeline failed ❌'
         }
     }
-    }
+}
