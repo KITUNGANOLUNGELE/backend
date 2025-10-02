@@ -26,19 +26,19 @@ pipeline {
             }
         }
 
-        stage('charge les images dans minikube') {
-            steps {
-                script {
-                    // Configure docker-env pour CMD (Windows)
-                    bat 'for /f "usebackq tokens=*" %%i in (`minikube -p minikube docker-env --shell cmd`) do (%%i)'
+        // stage('charge les images dans minikube') {
+        //     steps {
+        //         script {
+        //             // Configure docker-env pour CMD (Windows)
+        //             bat 'for /f "usebackq tokens=*" %%i in (`minikube -p minikube docker-env --shell cmd`) do (%%i)'
 
-                    IMAGES.each { app ->
-                        echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
-                        bat "minikube image load ${DOCKERUSER}/${app}:v1"
-                    }
-                }
-            }
-        }
+        //             IMAGES.each { app ->
+        //                 echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
+        //                 bat "minikube image load ${DOCKERUSER}/${app}:v1"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('deployment sous kubernet') {
             steps {
