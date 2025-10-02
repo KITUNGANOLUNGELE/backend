@@ -26,19 +26,12 @@ pipeline {
             }
         }
 
-        // stage('charge les images dans minikube') {
-        //     steps {
-        //         script {
-        //             // Configure docker-env pour CMD (Windows)
-        //             bat 'for /f "usebackq tokens=*" %%i in (`minikube -p minikube docker-env --shell cmd`) do (%%i)'
-
-        //             IMAGES.each { app ->
-        //                 echo "Lecture de ${DOCKERUSER}/${app}:v1 dans minikube"
-        //                 bat "minikube image load ${DOCKERUSER}/${app}:v1"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('charge les images dans minikube') {
+            steps {
+                    bat 'dir'
+            }
+        }
+    }
 
         stage('deployment sous kubernet') {
             steps {
@@ -55,7 +48,7 @@ pipeline {
                 bat 'kubectl get svc'
             }
         }
-    }
+}
 
     post {
         always {
@@ -70,4 +63,4 @@ pipeline {
             echo 'pipeline failed ❌'
         }
     }
-}
+
