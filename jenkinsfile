@@ -26,16 +26,18 @@ pipeline {
             }
         }
 
-        stage("lister les fichiers") {
+        stage('lister les fichiers') {
             steps {
-                bat "dir"
+                bat 'dir'
             }
         }
 
         stage('deployment sous kubernet') {
             steps {
                 echo 'Deployement sur kubernet'
-                bat 'kubectl apply -f k8s'
+                withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                    bat 'kubectl apply -f k8s'
+                }
             }
         }
 
