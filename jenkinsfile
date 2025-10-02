@@ -17,7 +17,7 @@ pipeline {
 
         stage('use minikube') {
             steps {
-                bat "minikube start -p minikube"
+                bat "minikube start -p minikube docker-env"
             }
         }
 
