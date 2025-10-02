@@ -44,11 +44,11 @@ pipeline {
         stage('verification des deployement') {
             steps {
                 echo 'lister les pods'
-                 withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
                     bat 'kubectl get pods'
                 }
                 echo 'lister les services'
-                 withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
                     bat 'kubectl get svc'
                 }
             }
@@ -62,6 +62,10 @@ pipeline {
 
         success {
             echo 'deployment successfull ✅'
+            echo 'suppression des pods'
+            withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                    bat 'kubectl delete pods --all'
+            }
         }
 
         failure {
