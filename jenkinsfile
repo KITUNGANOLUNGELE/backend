@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+        stage('use minikube') {
+            steps {
+                bat "minikube start -p minikube"
+            }
+        }
+
         stage('build images') {
             steps {
                 script {
