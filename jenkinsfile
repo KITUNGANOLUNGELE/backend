@@ -64,7 +64,7 @@ pipeline {
             echo 'deployment successfull ✅'
             echo 'suppression des pods'
             withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
-                    bat 'kubectl rollout restart deployment --all'
+                    bat 'kubectl rollout restart deployment --all -n default'
             }
         }
 
