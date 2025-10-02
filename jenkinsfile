@@ -56,22 +56,22 @@ pipeline {
         stage('Restart Deployments') {
             steps {
                 script {
-                    // Définir le kubeconfig si nécessaire
-                    withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
-                        // Récupérer la liste des déploiements
-                        def deploymentsOutput = bat(
-                            script: 'kubectl get deployments -n default -o name',
-                            returnStdout: true
-                        ).trim()
+                      withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                // Récupérer la liste des déploiements
+                def deploymentsOutput = bat(
+                    script: 'kubectl get deployments -n default -o name',
+                    returnStdout: true
+                ).trim()
 
-                        echo "Déploiements trouvés:\n${deploymentsOutput}"
+                echo "Déploiements trouvés:\n${deploymentsOutput}"
 
-                        // Découper la sortie ligne par ligne et redémarrer chaque déploiement
-                        deploymentsOutput.split('\r?\n').each { deployName ->
-                            echo "Redémarrage de ${deployName}"
-                            bat "kubectl rollout restart ${deployName} -n default"
-                        }
-                    }
+                // Découper ligne par ligne
+                deploymentsOutput.split('\r?\n').each { deployName ->
+                    deployName = deployName.trim() // supprimer espaces éventuels
+                    if (deployName) {
+                        echo "Redémarrage de ${deployName}"
+                        // Utiliser quotes pour éviter les problèmes Windows
+                        bat "kubectl rollout restart ${deployName} -n default"
                 }
             }}
         }
