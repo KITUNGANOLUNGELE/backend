@@ -44,9 +44,13 @@ pipeline {
         stage('verification des deployement') {
             steps {
                 echo 'lister les pods'
-                bat 'kubectl get pods'
+                 withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                    bat 'kubectl get pods'
+                }
                 echo 'lister les services'
-                bat 'kubectl get svc'
+                 withEnv(['KUBECONFIG=C:\\Users\\hlung\\.kube\\config']) {
+                    bat 'kubectl get svc'
+                }
             }
         }
     }
