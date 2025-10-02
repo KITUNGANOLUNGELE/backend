@@ -35,7 +35,7 @@ pipeline {
         stage('deployment sous kubernet') {
             steps {
                 echo 'Deployement sur kubernet'
-                bat 'kubectl apply -f /k8s/'
+                bat 'kubectl apply -f k8s'
             }
         }
 
