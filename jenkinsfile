@@ -26,12 +26,11 @@ pipeline {
             }
         }
 
-        stage('charge les images dans minikube') {
+        stage("lister les fichiers") {
             steps {
-                    bat 'dir'
+                bat "dir"
             }
         }
-    }
 
         stage('deployment sous kubernet') {
             steps {
@@ -48,7 +47,7 @@ pipeline {
                 bat 'kubectl get svc'
             }
         }
-}
+    }
 
     post {
         always {
@@ -63,4 +62,4 @@ pipeline {
             echo 'pipeline failed ❌'
         }
     }
-
+}
